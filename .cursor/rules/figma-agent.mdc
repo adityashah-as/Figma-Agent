@@ -45,3 +45,8 @@ The `.js-meta.xml` file MUST include the following to ensure it can be dragged i
 - You must create a clear list of all the images used so the developer can replace them later.
 - At the very top of the `.js` file, create a multi-line block comment titled `/* ASSET REPLACEMENT TODO: */`.
 - Inside this block comment, list every single temporary Figma URL you used in the code, along with a description of what the image is (e.g., "Main Company Logo", "Background Cloud Graphic").
+## 7. Responsive Design & Breakpoints
+- **Mobile-First / Auto-Layout:** Analyze the Figma file for mobile, tablet, and desktop variations or Auto-Layout behaviors. The LWC must be fully responsive.
+- **SLDS Grid Priority:** Prioritize using the SLDS Grid system (`slds-grid`, `slds-wrap`, `slds-col`, `slds-size_1-of-1`, `slds-large-size_1-of-2`) to handle responsive layouts.
+- **Media Queries:** If SLDS grids cannot achieve the exact layout shift shown in Figma, write standard CSS media queries (e.g., `@media (max-width: 768px)`) in the `.css` file.
+- **No Fixed Desktop Widths:** NEVER hardcode rigid desktop widths (e.g., `width: 1440px;`) on outer containers. Use `width: 100%;` and `max-width` constraints so the component scales fluidly down to mobile screens.
