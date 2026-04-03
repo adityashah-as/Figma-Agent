@@ -1,0 +1,126 @@
+<template>
+    <!-- .Login 01 (node: 12036:89647) -->
+    <div class="login-01">
+
+        <!-- .Utility / Title (node: 12036:89648) -->
+        <div class="utility-title">
+            <!-- Logo & Title -->
+            <div class="logo-and-title">
+                <!-- Utility / Logo (node: 6709:24422) -->
+                <div class="utility-logo">
+                    <!-- Utility / Logo Mark (node: 7954:61992) -->
+                    <div class="logo-mark">
+                        <img alt="" src={logoMarkUrl} class="logo-mark-img">
+                    </div>
+                    <!-- Logo Wordmark Vector (node: 10001:60824) -->
+                    <div class="logo-wordmark">
+                        <img alt="" src={logoWordmarkUrl} class="logo-wordmark-img">
+                    </div>
+                </div>
+                <!-- Container: Title + Subtitle (node: I12036:89648;2706:22141) -->
+                <div class="title-container">
+                    <div class="title-text">
+                        <p>Login 01</p>
+                    </div>
+                    <div class="subtitle-text">
+                        <p>A simple login form</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Documentation link (node: I12036:89648;6977:60654) -->
+            <a class="documentation-link" onclick={handleDocumentationClick}>Documentation</a>
+        </div>
+
+        <!-- Main content (node: 12036:89649) -->
+        <div class="main-content">
+            <!-- Login 01 Block (node: 6961:48042) -->
+            <div class="login-01-block">
+                <!-- Card (node: 6961:47228) -->
+                <div class="card">
+                    <!-- .Card Header (node: I6961:47228;149:2490) -->
+                    <div class="card-header">
+                        <!-- Title and desc -->
+                        <div class="card-header-content">
+                            <p class="card-title">Title</p>
+                            <p class="card-description">Enter your email below to login to your account</p>
+                        </div>
+                    </div>
+                    <!-- .Utility / Placeholder (node: 2760:17079) -->
+                    <div class="utility-placeholder">
+                        <div class="placeholder-content">
+                            <p class="placeholder-main-text">Place content here</p>
+                            <p class="placeholder-sub-text">Opt + &#8984;</p>
+                        </div>
+                    </div>
+                    <!-- .Card Footer (node: I6961:47228;149:2496) -->
+                    <div class="card-footer">
+                        <!-- Buttons (node: I6961:47228;149:2496;6961:47659) -->
+                        <div class="card-buttons">
+                            <!-- Button primary (node: I6961:47228;149:2496;2759:16372) -->
+                            <div class="btn-primary" onclick={handlePrimaryButtonClick} role="button" tabindex="0">
+                                <p class="btn-primary-label">Label</p>
+                            </div>
+                            <!-- Button secondary (node: I6961:47228;149:2496;2759:16371) -->
+                            <div class="btn-secondary" onclick={handleSecondaryButtonClick} role="button" tabindex="0">
+                                <p class="btn-secondary-label">Label</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- .Utility / Footer (node: 7052:51648) -->
+        <div class="utility-footer">
+            <!-- Logo & Divider (node: 7954:65368) -->
+            <div class="footer-divider-row">
+                <!-- Separator left -->
+                <div class="separator">
+                    <div class="separator-line"></div>
+                </div>
+                <!-- Footer cloud icon (node: 10001:69256) -->
+                <div class="footer-cloud">
+                    <img alt="" src={footerCloudUrl} class="footer-cloud-img">
+                </div>
+                <!-- Separator right -->
+                <div class="separator">
+                    <div class="separator-line"></div>
+                </div>
+            </div>
+            <!-- Links (node: 7954:75172) -->
+            <div class="footer-links-row">
+                <!-- Copyright text -->
+                <div class="footer-copyright">
+                    <p>&copy; Salesforce 2025</p>
+                </div>
+                <!-- Docs (node: 7149:11233) -->
+                <div class="footer-link" onclick={handleDocsClick}>
+                    <div class="footer-link-icon">
+                        <img alt="" src={docsIconUrl} class="footer-link-icon-img">
+                    </div>
+                    <div class="footer-link-label">
+                        <a>Docs</a>
+                    </div>
+                </div>
+                <!-- Website (node: 7149:12498) -->
+                <div class="footer-link" onclick={handleWebsiteClick}>
+                    <div class="footer-link-icon">
+                        <img alt="" src={globeIconUrl} class="footer-link-icon-img">
+                    </div>
+                    <div class="footer-link-label">
+                        <a>Website</a>
+                    </div>
+                </div>
+                <!-- Support (node: 7149:13330) -->
+                <div class="footer-link" onclick={handleSupportClick}>
+                    <div class="footer-link-icon">
+                        <img alt="" src={supportIconUrl} class="footer-link-icon-img">
+                    </div>
+                    <div class="footer-link-label">
+                        <a>Support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

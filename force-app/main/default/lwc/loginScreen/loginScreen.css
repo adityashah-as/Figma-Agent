@@ -1,0 +1,464 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Root: .Login 01 — bg: var(--accent, #dbeafe), rounded 10px */
+.login-01 {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+    background-color: #dbeafe;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ---------------------------------------------------------------
+   HEADER — .Utility / Title
+   --------------------------------------------------------------- */
+.utility-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 80px 80px 40px 80px;
+    border-bottom: 1px solid #eeeeee;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.logo-and-title {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 0;
+    gap: 40px;
+    align-items: flex-start;
+    min-height: 1px;
+    min-width: 1px;
+    padding: 0;
+}
+
+/* Utility / Logo */
+.utility-logo {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo-mark {
+    width: 36px;
+    height: 26px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logo-mark-img {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+
+.logo-wordmark {
+    width: 74px;
+    height: 17px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.logo-wordmark-img {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+
+/* Title Container */
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    max-width: 1280px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* text-6xl/bold — 64px, weight 700, color var(--foreground, #3f3f46), tracking -1.6px */
+.title-text {
+    width: 100%;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+    font-size: 64px;
+    color: #3f3f46;
+    letter-spacing: -1.6px;
+    line-height: 1;
+}
+
+.title-text p {
+    margin: 0;
+}
+
+/* text-base/leading-normal/normal — 16px, weight 400, color var(--muted-foreground, #71717a) */
+.subtitle-text {
+    width: 100%;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #71717a;
+    line-height: 24px;
+}
+
+.subtitle-text p {
+    margin: 0;
+}
+
+/* Documentation link — text-sm/medium, underline, color var(--foreground, #3f3f46) */
+.documentation-link {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #3f3f46;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------
+   MAIN CONTENT
+   --------------------------------------------------------------- */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 80px;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-01-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+
+/* Card — white bg, 1px solid var(--border, #eee), radius 14px, shadows/sm */
+.card {
+    width: 394px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 14px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1),
+                0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    padding: 0;
+}
+
+/* .Card Header — padding 24px, gap 6px */
+.card-header {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.card-header-content {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+    min-height: 1px;
+    min-width: 1px;
+}
+
+/* text-base/leading-none/medium — 16px, weight 500, color var(--card-foreground, #3f3f46) */
+.card-title {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #3f3f46;
+    line-height: 1;
+    width: 100%;
+    margin: 0;
+}
+
+/* text-sm/leading-normal/normal — 14px, weight 400, color var(--muted-foreground, #71717a) */
+.card-description {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #71717a;
+    line-height: 20px;
+    width: 100%;
+    margin: 0;
+}
+
+/* .Utility / Placeholder — white bg, 1px dashed var(--border, #eee), radius 14px, h 168px */
+.utility-placeholder {
+    background-color: #ffffff;
+    border: 1px dashed #eeeeee;
+    border-radius: 14px;
+    display: flex;
+    gap: 0;
+    height: 168px;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.placeholder-content {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 1px;
+    min-width: 1px;
+}
+
+.placeholder-main-text {
+    font-family: 'Geist', 'Noto Sans Symbols 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #3f3f46;
+    line-height: 24px;
+    margin: 0;
+}
+
+.placeholder-sub-text {
+    font-family: 'Geist', 'Noto Sans Symbols 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #71717a;
+    line-height: 24px;
+    margin: 0;
+}
+
+/* .Card Footer — padding: 0 24px 24px, gap 16px, centered */
+.card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    padding: 0 24px 24px 24px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* Buttons container — column, gap 8px */
+.card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/* Primary Button — bg var(--primary, #2563eb), radius 6px, shadows/2xs */
+.btn-primary {
+    background-color: #2563eb;
+    display: flex;
+    gap: 8px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* text-sm/leading-normal/medium — 14px, weight 500, color var(--primary-foreground, white) */
+.btn-primary-label {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 20px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* Secondary Button — bg white, 1px solid var(--input, #fafafa), radius 6px, shadows/2xs */
+.btn-secondary {
+    background-color: #ffffff;
+    border: 1px solid #fafafa;
+    display: flex;
+    gap: 8px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* text-sm/leading-normal/medium — 14px, weight 500, color var(--foreground, #3f3f46) */
+.btn-secondary-label {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #3f3f46;
+    line-height: 20px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+/* ---------------------------------------------------------------
+   FOOTER — .Utility / Footer
+   --------------------------------------------------------------- */
+.utility-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 0 80px 0;
+    border-radius: 10px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* Logo & Divider row — gap 10px, centered */
+.footer-divider-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.separator {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+    min-height: 1px;
+    min-width: 1px;
+    padding: 0;
+}
+
+.separator-line {
+    width: 100%;
+    height: 1px;
+    background-color: #e4e4e7;
+}
+
+.footer-cloud {
+    width: 26px;
+    height: 18px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.footer-cloud-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    position: absolute;
+}
+
+/* Footer Links row — gap 16px, padding 0 80px */
+.footer-links-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 0 80px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* Copyright — flex 1, text-sm, color var(--muted-foreground, #71717a) */
+.footer-copyright {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 1px;
+    min-width: 1px;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #71717a;
+    line-height: 20px;
+}
+
+.footer-copyright p {
+    margin: 0;
+}
+
+/* Footer link items — gap 4px, centered */
+.footer-link {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.footer-link-icon {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.footer-link-icon-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+
+/* text-sm/leading-normal/normal — 14px, weight 400, color var(--muted-foreground, #71717a) */
+.footer-link-label {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #71717a;
+    line-height: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.footer-link-label a {
+    display: block;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
