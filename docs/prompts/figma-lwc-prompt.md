@@ -30,6 +30,10 @@ If you already filled **section 2**, you can skip this. Otherwise you may repeat
 * [e.g., "Forgot Password?" Text Link]
 * [e.g., "Sign in with SSO" Button]
 
-### 5. Extra layout notes
-* [e.g., Make sure the background color stretches the full width of the screen]
-* [e.g., Ignore the browser frame in the Figma mockup; only code the inner canvas]
+### 5. Layout & Scrolling Behavior (CHOOSE ONE)
+Please build the macro-layout of this component using the following behavior:
+* [ ] **App-like / Dashboard:** Lock to screen height (`100vh`), do NOT allow the main page to scroll (`overflow: hidden`). If internal sections need scrolling, apply `overflow-y: auto` only to those specific inner containers (e.g., a Sidebar or fixed Navigation).
+* [ ] **Document-like / Standard Page:** Allow the component to grow to its natural height. Do NOT restrict the height to `vh` and allow the browser window to scroll normally (e.g., an About Page, Article, or long Form).
+
+### 6. Extra layout notes
+* [Add any other specific instructions here, e.g., "Make sure the background color stretches full width"]
