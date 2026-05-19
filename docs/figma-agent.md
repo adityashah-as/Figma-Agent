@@ -1,6 +1,6 @@
 # Figma-to–Experience Cloud Agent
 
-This document describes the **Figma-to-ExpCloud Agent**: a Cursor AI configuration that turns Figma designs into Salesforce Lightning Web Components (LWCs) for Experience Cloud, using the Figma MCP integration.
+This document describes the **Figma-to-ExpCloud Agent**: a Cursor AI configuration that turns Figma designs into Salesforce Lightning Web Components (LWCs) for Experience Cloud, using a Figma MCP integration.
 
 ## Purpose
 
@@ -22,12 +22,82 @@ The rule file uses:
 - `alwaysApply: true` — guidance is available across the workspace.
 - `globs: "force-app/main/default/lwc/**/*"` — extra relevance when working in LWC folders.
 
+## Figma MCP: Standard API vs Local Bridge (rate limits)
+
+Figma’s **REST API** (used by the standard `figma-context-mcp` server) is rate-limited. On free/Starter plans, **Tier 1** endpoints (file content, images) are often capped at **about 6 requests per month** per file/plan. After that, calls return `429 Too Many Requests`.
+
+**Figma MCP Bridge** ([gethopp/figma-mcp-bridge](https://github.com/gethopp/figma-mcp-bridge)) avoids those limits by **not calling the REST API**. Instead:
+
+| | Standard MCP (`figma-context-mcp`) | Figma MCP Bridge (`@gethopp/figma-mcp-bridge`) |
+|---|-----------------------------------|-----------------------------------------------|
+| **How it connects** | HTTP to `api.figma.com` with a personal access token | Local **WebSocket** on `localhost:1994` |
+| **Data source** | Figma REST API | Figma **Plugin API** inside the desktop app |
+| **Rate limits** | Yes (plan/token dependent) | **No** — reads design data locally from the open file |
+| **Auth** | `FIGMA_API_KEY` in `mcp.json` | None — you must be logged into Figma and run the plugin |
+| **Typical tools** | `get_figma_data`, `download_figma_images` | `get_node`, `get_selection`, `get_design_context`, `get_screenshot`, `save_screenshots` |
+| **URL-only workflow** | Can pass any Figma URL + `fileKey` / `nodeId` | Plugin must be **running in the file** you want; use selection or node IDs |
+
+The bridge is intended for the same agent workflow (read design → generate LWC) but requires Figma Desktop with the development plugin running in the target file.
+
+### Configure MCP in Cursor
+
+Edit your global MCP config (typically `%USERPROFILE%\.cursor\mcp.json` on Windows):
+
+**Standard (API — rate limited):**
+
+```json
+{
+  "mcpServers": {
+    "Figma-Open": {
+      "command": "npx",
+      "args": ["-y", "figma-context-mcp", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "YOUR_FIGMA_PERSONAL_ACCESS_TOKEN"
+      }
+    }
+  }
+}
+```
+
+**Bridge (local — no API rate limit):**
+
+```json
+{
+  "mcpServers": {
+    "figma-bridge": {
+      "command": "npx",
+      "args": ["-y", "@gethopp/figma-mcp-bridge"]
+    }
+  }
+}
+```
+
+After changing `mcp.json`, **reload Cursor** (`Ctrl+Shift+P` → **Reload Window**) so the new server loads.
+
+### One-time: install the Figma plugin
+
+1. Download **`figma-mcp-bridge-v0.0.11.zip`** (or latest) from [releases](https://github.com/gethopp/figma-mcp-bridge/releases).
+2. Extract the zip; locate `plugin/manifest.json`.
+3. In **Figma Desktop**, open a file you can **edit** (development plugins are not available in view-only files).
+4. **Plugins → Development → Import plugin from manifest…** and select that `manifest.json`.
+5. Run **Figma MCP Bridge** from **Plugins → Development**. Confirm **WebSocket Connected** in the plugin panel.
+
+For **view-only** shared files: duplicate to your drafts, or copy/paste frames into an editable file, then run the plugin there.
+
+### Agent impact when using the bridge
+
+- **Layout/text:** Bridge data includes `bounds`, `styles`, `characters`, `autoLayout`, `padding` — suitable for pixel-perfect rules; field names differ from REST `globalVars` / `layout_*` refs.
+- **Images:** Bridge does not return Figma CDN URLs like `download_figma_images`; use `get_screenshot` or `save_screenshots` and wire assets as static resources or `@api` URLs per your process.
+- **Workflow:** User opens the correct frame in Figma, runs the plugin, then prompts Cursor; agent uses `get_selection`, `get_node`, or `get_design_context` instead of `get_figma_data(fileKey, …)`.
+
 ## Prerequisites
 
-1. **Cursor** with the **Figma MCP** (official Figma MCP server) enabled and authenticated if your org requires it.
-2. **Figma links** that include the node you want implemented (frame or component). The MCP server parses `fileKey` and `node-id` from standard Figma URLs.
+1. **Cursor** with an MCP server configured (bridge recommended to avoid REST rate limits; see above).
+2. **Figma Desktop** with **Figma MCP Bridge** plugin running in the file you are implementing (if using the bridge).
+3. **Edit access** to the Figma file (or a duplicate/copy of the design in an editable file).
+4. **Figma links** with `node-id` still help humans locate frames; with the bridge, the agent reads from the **open file + selection/node ID**, not from a remote URL alone.
 
-When implementing from Figma, the agent should read the design through the MCP tools (for example `get_design_context` per server instructions) before generating code.
+When implementing from Figma, the agent should read the design through MCP tools (`get_design_context`, `get_node`, `get_selection`, etc.) before generating code.
 
 ## Behavior summary
 
@@ -43,7 +113,7 @@ The following mirrors the numbered sections in `.cursor/rules/figma-agent.mdc`:
 
 4. **Metadata** — `js-meta.xml` exposes the component for Experience Cloud: `isExposed`, targets `lightningCommunity__Page` and `lightningCommunity__Default`, API version `60.0` (or newer if you standardize on a later release). If the prompt explicitly lists strings to expose, use that list; otherwise expose primary copy via `@api` and `<property>` in `targetConfigs`.
 
-5. **Assets** — The agent picks PowerShell vs `curl` from runtime context (no prompting the user) and may retry with the alternate command if the first fetch fails. **Small SVG (response body ≤ 10 KB):** may inline `<svg>` in HTML after fetch. **Larger SVG:** do not inline; use `<img>` / CSS URL like PNG/JPG and expose URLs in metadata. **Raster:** Figma URLs in markup/CSS; expose in Builder per section 6.
+5. **Assets** — The agent picks PowerShell vs `curl` from runtime context (no prompting the user) and may retry with the alternate command if the first fetch fails. **Small SVG (response body ≤ 10 KB):** may inline `<svg>` in HTML after fetch. **Larger SVG:** do not inline; use `<img>` / CSS URL like PNG/JPG and expose URLs in metadata. **Raster:** use exported/screenshot URLs or static resources; expose in Builder per section 6. With the bridge, prefer `save_screenshots` over REST image URLs.
 
 6. **Images in Builder** — Every image URL that should be editable in Experience Builder is exposed as an `@api` property and a `<property>` under `targetConfigs` for `lightningCommunity__Default`, so admins can point to Static Resources or CMS URLs.
 
@@ -63,6 +133,14 @@ The following mirrors the numbered sections in `.cursor/rules/figma-agent.mdc`:
 ## Related project assets
 
 - Sample Experience Cloud site metadata under `force-app/main/default/digitalExperiences/` (for example sites named for Figma agent work) is separate from the LWC rule; deploy and wire LWCs as your process requires.
+
+---
+
+## Quick tip: use the bridge (3 steps)
+
+1. **MCP** — In `~/.cursor/mcp.json`, use `figma-bridge` with `@gethopp/figma-mcp-bridge`[https://github.com/gethopp/figma-mcp-bridge] (no API key). Reload Cursor.
+2. **Figma** — Open your editable file → run **Plugins → Development → Figma MCP Bridge** → wait for **WebSocket Connected**.
+3. **Cursor** — Select the frame in Figma, then ask the agent to build the LWC from the current selection or node ID.
 
 ---
 
